@@ -9,11 +9,39 @@ use Illuminate\Http\Request;
 class CategoriesController extends Controller
 {
     /**
+     * Directing the user to the create page for categories
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('category.create');
+    }
+
+    /**
+     * Storing the new category into the db and redirecting back to the main page
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store()
+    {
+        $validatedData = request()->validate([
+            'title' => 'required|max:255',
+            'headline' => 'required|max:255',
+            'description' => 'required'
+        ]);
+
+        Category::create($validatedData);
+
+        return redirect('/')->with('success', "Hooray, you just created a NEW Category!");
+    }
+
+    /**
      * Get all the subcategories with their related artciles.
      *
-     * @param category $category
-     * @param SubCategory $subCaterogy
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function show(Category $category, SubCategory $subCaterogy)
     {
@@ -32,21 +60,26 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Directing the user to the create page for categories
-     *
+     * @param int $id
+     * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function edit(int $id)
     {
-        return view('category.create');
+        $category = Category::find($id);
+
+        return view('category.edit', compact([
+            'category'
+        ]));
     }
 
     /**
-     * Storing the new category into the db and redirecting back to the main page
+     * Updating the subcategory method
      *
-     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Category $category)
+    public function update(int $id)
     {
         $validatedData = request()->validate([
             'title' => 'required|max:255',
@@ -54,24 +87,20 @@ class CategoriesController extends Controller
             'description' => 'required'
         ]);
 
-        dd($category->save($validatedData));
+        Category::find($id)->update($validatedData);
 
-        return redirect('/')->with('success', "Hooray, you just created a NEW Category!");
+        return redirect('/')->with('success', "Hooray, you just updated {$validatedData['headline']} Category!");
     }
 
     /**
-     * Returning the
+     * Remove the specified resource from storage.
      *
-     * @param Category $category
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function destroy($id)
     {
-        return view('category.edit');
-    }
-
-    public function update()
-    {
-
+        //
     }
 }
+

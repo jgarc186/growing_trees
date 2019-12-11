@@ -17,18 +17,4 @@ class Category extends Model
     {
         return $this->all();
     }
-
-    /**
-     * Get the the cateroy row, based on the $id provided.
-     *
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public static function find(int $id)
-    {
-        return Category::query()
-            ->select('*')
-            ->where('id', $id)
-            ->get();
-    }
 }

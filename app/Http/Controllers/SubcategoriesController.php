@@ -6,7 +6,7 @@ use App\Category;
 use App\SubCategory;
 use Illuminate\Http\Request;
 
-class SubcategoryController extends Controller
+class SubcategoriesController extends Controller
 {
     /**
      * Get all the categories from db to pass to the view for the select form
@@ -27,7 +27,7 @@ class SubcategoryController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(SubCategory $subCategory)
+    public function store()
     {
         $validatedData = request()->validate([
             'title' => 'required|unique:categories|max:255',
@@ -36,7 +36,7 @@ class SubcategoryController extends Controller
             'description' => 'required'
         ]);
 
-        $subCategory->save($validatedData);
+        SubCategory::create($validatedData);
 
         return redirect('/')->with('success', "Hooray, you just {$validatedData['headline']} a NEW Sub-Category!");
     }
@@ -49,7 +49,7 @@ class SubcategoryController extends Controller
     public function edit(int $id, Category $category)
     {
         $subcategory = SubCategory::find($id);
-        $selectedCategory = $category::find($subcategory[0]->category_id);
+        $selectedCategory = $category::find($subcategory->category_id);
         $categories = $category->getAll();
 
         return view('subcategory.edit', compact([
@@ -59,7 +59,13 @@ class SubcategoryController extends Controller
         ]));
     }
 
-    public function update(SubCategory $subCategory)
+    /**
+     * Updating the subcategory method
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(int $id)
     {
         $validatedData = request()->validate([
             'title' => 'required|max:255',
@@ -68,7 +74,7 @@ class SubcategoryController extends Controller
             'description' => 'required'
         ]);
 
-        $subCategory->update($validatedData);
+        SubCategory::find($id)->update($validatedData);
 
         return redirect('/')->with('success', "Hooray, you just updated {$validatedData['headline']} Sub-Category!");
     }

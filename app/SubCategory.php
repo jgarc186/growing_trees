@@ -9,20 +9,6 @@ class SubCategory extends Model
     protected $guarded = [];
 
     /**
-     * Finding the sub-category, based on the id.
-     *
-     * @param int $id
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public static function find(int $id)
-    {
-        return SubCategory::query()
-            ->select("*")
-            ->where('id', $id)
-            ->get();
-    }
-
-    /**
      * Get all subcategories related to the category id.
      *
      * @param int $id

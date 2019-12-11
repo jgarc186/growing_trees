@@ -15,9 +15,9 @@ Route::get('/', 'EntryController@index');
 
 Route::resource('categories', 'CategoriesController');
 
-Route::resource('subcategories', 'SubcategoryController');
+Route::resource('subcategories', 'SubcategoriesController');
 
-Route::resource('articles', 'ArticleController');
+Route::resource('articles', 'ArticlesController');
 
 Auth::routes();
 
