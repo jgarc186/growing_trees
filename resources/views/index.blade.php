@@ -27,9 +27,9 @@
             <div>
                 Create
                 <ul>
-                    <li><a href="categories/create">Category</a></li>
-                    <li><a href="subcategories/create">Subcategory</a></li>
-                    <li><a href="articles/create">Article</a></li>
+                    <li><a href="{{ url('categories/create') }}">Category</a></li>
+                    <li><a href="{{ url('subcategories/create') }}">Subcategory</a></li>
+                    <li><a href="{{ url('articles/create') }}">Article</a></li>
                 </ul>
             </div>
 

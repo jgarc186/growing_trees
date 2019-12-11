@@ -9,7 +9,7 @@
                 </h3>
 
                 <div class="blog-post">
-                    <form action="/subcategories" method="POST">
+                    <form action="{{ url('subcategories') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <label>Title</label>

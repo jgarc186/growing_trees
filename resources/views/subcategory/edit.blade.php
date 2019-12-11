@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-8 blog-main">
                 <h3 class="pb-4 mb-4 font-italic border-bottom">
-                    Edit the Sub-Category |  {{ $subcategory->headline }}
+                    Edit {{ $subcategory->title }} Sub-Category
                 </h3>
                 <div class="blog-post">
                     <form action="/subcategories/{{ $subcategory->id }}" method="POST">

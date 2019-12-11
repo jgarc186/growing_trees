@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\SubCategory;
-use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
@@ -54,26 +53,44 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Find article based on $id provided and also find subcategory and get all the subcategories.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
-        //
+        $article = Article::find($id);
+        $subcategory = SubCategory::find($article->sub_category_id);
+        $subcategories = SubCategory::all();
+
+        return view('article.edit', compact([
+            'article',
+            'subcategory',
+            'subcategories'
+        ]));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Find article based on $id and updated it with the validated request data.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(int $id)
     {
-        //
+        $validatedData = request()->validate([
+            'title' => 'required|unique:categories|max:255',
+            'sub_category_id' => 'required',
+            'author' => 'required',
+            'headline' => 'required|unique:categories|max:255',
+            'description' => 'required',
+            'copy' => 'required'
+        ]);
+
+        Article::find($id)->update($validatedData);
+
+        return redirect('/')->with('success', "Hooray, you just updated {$validatedData['headline']} Article!");
     }
 
     /**
