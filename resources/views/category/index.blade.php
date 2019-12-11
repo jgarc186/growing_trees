@@ -12,12 +12,22 @@
                 <div class="blog-post">
                     @foreach ($contents as $subcategory)
                         <a href="{{ url('subcategories/' . $subcategory['subcategory']->id . '/edit') }}">Edit {{ $subcategory['subcategory']->headline }}</a>
+                        <form action="{{ url('subcategories/' . $subcategory['subcategory']->id ) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Delete</button>
+                        </form>
                         <h2 class="blog-post-title">{{ $subcategory['subcategory']->headline }}</h2>
                         @foreach($subcategory['articles'] as $article)
                             <a href="{{ url("articles/" . $article->id) }}">
                                 <h4>{{ $article->title }}</h4>
                             </a>
                             <a href="{{ url('articles/' . $article->id . '/edit') }}">Edit</a>
+                            <form action="{{ url('articles/' . $article->id ) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
                             <p>{{ $article->description }}</p>
                         @endforeach
                     @endforeach

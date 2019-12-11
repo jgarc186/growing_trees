@@ -101,6 +101,8 @@ class ArticlesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Article::find($id)->delete();
+
+        return redirect('/')->with('success', "Hooray, you just deleted an Article!");
     }
 }

@@ -78,4 +78,11 @@ class SubcategoriesController extends Controller
 
         return redirect('/')->with('success', "Hooray, you just updated {$validatedData['headline']} Sub-Category!");
     }
+
+    public function destroy(int $id)
+    {
+        SubCategory::find($id)->delete();
+
+        return redirect('/')->with('success', "Hooray, you just deleted a Sub-Category!");
+    }
 }

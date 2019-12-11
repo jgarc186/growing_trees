@@ -17,6 +17,11 @@
                             <a href="{{ url('categories/' . $category['id']) }}">
                                 <h2 class="blog-post-title">{{ $category['headline'] }}</h2>
                             </a>
+                            <form action="{{ url('categories/' . $category['id'] ) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit">Delete</button>
+                            </form>
                         @endif
                     @endforeach
                 </div>
