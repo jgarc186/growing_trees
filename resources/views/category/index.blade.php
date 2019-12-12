@@ -32,11 +32,10 @@
                         @endforeach
                     @endforeach
                 </div>
-
             </div><!-- /.blog-main -->
 
 {{--            @include('components.aside')--}}
-
+            <sidebar-component></sidebar-component>
         </div><!-- /.row -->
 
     </main><!-- /.container -->

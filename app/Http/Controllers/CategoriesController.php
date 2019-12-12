@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class CategoriesController extends Controller
 {
     /**
+     *
+     */
+    public function index()
+    {
+        return Category::all();
+    }
+
+    /**
      * Directing the user to the create page for categories
      *
      * @return \Illuminate\Http\Response

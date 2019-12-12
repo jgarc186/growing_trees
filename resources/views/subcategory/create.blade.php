@@ -38,7 +38,7 @@
                 </div>
 
             </div><!-- /.blog-main -->
-
+            <sidebar-component></sidebar-component>
             {{--            @include('components.aside')--}}
 
         </div><!-- /.row -->
